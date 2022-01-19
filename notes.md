@@ -3,6 +3,10 @@
 - **string**: `'Hi', "Hi", Hi (template literal)` / all text values
 - **boolean**: `true, false` / just these two, no "truthy" or "falsy" values
 - **object**: `{age: 30}` / any javascript object, more specific types (type of object) are possible
+- **array**: `[1, 2, 3]` / any javascript array, type can be flexible or strict (regarding the element types)
+- **tuple**: `[1, 2]` / added by Typescript: fixed-length array
+- **enum**: `enum { NEW, OLD }` / added by Typescript: automatically enumerated global constant identifiers
+- **any**: `*` / any kind of value, no specific type assignment
 
 ### 2.12
 - JavaScript: **dynamic types** / (resolved at runtime)
@@ -40,3 +44,34 @@ const product = {
 }
 ```
 - so you have an object in an object type so to say.
+
+### 2.25 - Type Aliases & Object Types
+- Type aliases can be used to "create" your own types. You're not limited to storing union types though - you can also provide an alias to a (possibly complex) object type.
+- For example:
+```
+type User = { name: string; age: number };
+const u1: User = { name: 'Kenny', age: 29 }; // this works!
+```
+- This allows you to avoid unnecessary repetition and manages types centrally.
+- For example:
+```
+function greet(user: { name: string; age: number }) {
+  console.log('Hi, I am ' + user.name);
+}
+
+function isOlder(user: { name: string; age: number }), checkAge: number) {
+  return checkAge > user.age;
+}
+```
+- To:
+```
+type User = { name: string; age: number };
+
+function greet(user: User) {
+  console.log('Hi, I am ' + user.name);
+}
+
+function isOlder(user: User, checkAge: number) {
+  return checkAge > user.age;
+}
+```
