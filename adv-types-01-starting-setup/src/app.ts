@@ -44,7 +44,13 @@ const fetchedUserData = {
   // job: { title: 'CEO', description: 'My own company' }
 };
 
-console.log(fetchedUserData?.job?.title);
+// console.log(fetchedUserData?.job?.title); // optional chaining
+
+const userInput = null;
+
+const storedData = userInput ?? 'DEFAULT'; // nullish coalescing
+
+console.log(storedData);
 
 type UnknownEmployee = Employee | Admin;
 
